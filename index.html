@@ -478,6 +478,9 @@
       setupDragEvents(module1, images1, dragData1, () => drawRotatingImage(module1, ctx1, images1, dragData1), false);
       setupDragEvents(module5, images5, dragData5, () => drawRotatingImage(module5, ctx5, images5, dragData5), true);  // module2 -> module5로 변경
       setupDragEvents(module4, images4, dragData4, () => drawRotatingImage(module4, ctx4, images4, dragData4), true);  // module3 -> module4로 변경
+
+	    window.addEventListener('resize', resizeCanvas);  // 화면 크기 조정시마다 캔버스 크기 재설정
+    window.addEventListener('load', resizeCanvas);  // 페이지가 완전히 로드된 후 캔버스 크기 설정
     });
   </script>
 </body>
