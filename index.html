@@ -21,60 +21,60 @@
     }
 
     canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
   <div id="product360">
-    <!-- 모듈 1 -->
+    <!-- 모듈 1 (module3) -->
     <div class="canvas-container">
-      <canvas id="module1"></canvas>
+      <canvas id="module3"></canvas>
     </div>
-    <!-- 모듈 5 (원래 module2) -->
-    <div class="canvas-container">
-      <canvas id="module5"></canvas>
-    </div>
-    <!-- 모듈 4 (원래 module3) -->
+    <!-- 모듈 5 (module4) -->
     <div class="canvas-container">
       <canvas id="module4"></canvas>
+    </div>
+    <!-- 모듈 4 (module5) -->
+    <div class="canvas-container">
+      <canvas id="module5"></canvas>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // 각 캔버스를 선택
-      const module1 = document.getElementById('module1');
-      const module5 = document.getElementById('module5');
+      const module3 = document.getElementById('module3');
       const module4 = document.getElementById('module4');
+      const module5 = document.getElementById('module5');
       
       // 각 캔버스의 2D 컨텍스트를 가져옴
-      const ctx1 = module1.getContext('2d');
-      const ctx5 = module5.getContext('2d');
+      const ctx3 = module3.getContext('2d');
       const ctx4 = module4.getContext('2d');
+      const ctx5 = module5.getContext('2d');
 
       // 각 이미지 배열 정의
-      const images1 = [];
+      const images3 = [];
       for (let i = 30001; i <= 30100; i++) {
-        images.push(https://raw.githubusercontent.com/wndud630/module3/main/${i}.jpg);
-      }
-
-      const images5 = [];
-      for (let i = 40001; i <= 40100; i++) {
-        images.push(https://raw.githubusercontent.com/wndud630/module4/main/${i}.jpg);
+        images3.push(`https://raw.githubusercontent.com/wndud630/module3/main/${i}.jpg`);
       }
 
       const images4 = [];
+      for (let i = 40001; i <= 40100; i++) {
+        images4.push(`https://raw.githubusercontent.com/wndud630/module4/main/${i}.jpg`);
+      }
+
+      const images5 = [];
       for (let i = 30001; i <= 30100; i++) {
-        images.push(https://raw.githubusercontent.com/wndud630/module5/main/${i}.jpg);
+        images5.push(`https://raw.githubusercontent.com/wndud630/module5/main/${i}.jpg`);
       }
 
       // 드래그 데이터 초기화
-      const dragData1 = { currentIndex: Math.floor(images1.length / 2), isDragging: false, startX: 0 };
-      const dragData5 = { currentIndex: Math.floor(images5.length / 2), isDragging: false, startX: 0 };
+      const dragData3 = { currentIndex: Math.floor(images3.length / 2), isDragging: false, startX: 0 };
       const dragData4 = { currentIndex: Math.floor(images4.length / 2), isDragging: false, startX: 0 };
+      const dragData5 = { currentIndex: Math.floor(images5.length / 2), isDragging: false, startX: 0 };
 
       // 이미지 회전 함수
       function drawRotatingImage(canvas, ctx, images, dragData) {
@@ -97,9 +97,9 @@
           canvas.width = container.clientWidth * window.devicePixelRatio;  // 디바이스 픽셀 비율을 고려하여 크기 조정
           canvas.height = container.clientHeight * window.devicePixelRatio;
 
-          drawRotatingImage(module1, ctx1, images1, dragData1);
-          drawRotatingImage(module5, ctx5, images5, dragData5);  // module2 -> module5로 변경
-          drawRotatingImage(module4, ctx4, images4, dragData4);  // module3 -> module4로 변경
+          drawRotatingImage(module3, ctx3, images3, dragData3);
+          drawRotatingImage(module4, ctx4, images4, dragData4);
+          drawRotatingImage(module5, ctx5, images5, dragData5);
         });
       }
 
@@ -107,22 +107,22 @@
 
       // 드래그 이벤트 설정 함수
       function setupDragEvents(canvas, images, dragData, drawImageFunc, allowLoop = true) {
-		  canvas.addEventListener('mouseenter', () => {
-    if (!dragData.isDragging) {
-      canvas.style.cursor = 'grab';
-    }
-  });
-		
+        canvas.addEventListener('mouseenter', () => {
+          if (!dragData.isDragging) {
+            canvas.style.cursor = 'grab';
+          }
+        });
+
         canvas.addEventListener('mousedown', (e) => {  // 마우스 클릭 시작
           dragData.isDragging = true;
           dragData.startX = e.clientX;
-          canvas.style.cursor = url(https://cdn.imweb.me/thumbnail/20241111/cd03d21ffa98d.png), auto;  // 클릭 시 커서 이미지 변경
-    });
+          canvas.style.cursor = 'url(https://cdn.imweb.me/thumbnail/20241111/cd03d21ffa98d.png), auto';  // 클릭 시 커서 이미지 변경
+        });
 
         canvas.addEventListener('mouseup', () => {  // 마우스 클릭 종료
           dragData.isDragging = false;
-          canvas.style.cursor = url(https://cdn.imweb.me/thumbnail/20241111/cd03d21ffa98d.png), auto;  // 클릭 종료 후에도 동일한 커서 이미지로 유지
-    });
+          canvas.style.cursor = 'url(https://cdn.imweb.me/thumbnail/20241111/cd03d21ffa98d.png), auto';  // 클릭 종료 후에도 동일한 커서 이미지로 유지
+        });
 
         canvas.addEventListener('mouseleave', () => {  // 마우스가 캔버스를 벗어날 때
           dragData.isDragging = false;
@@ -169,23 +169,24 @@
             }
           }
         });
-		// 마우스 커서 이미지 변경
-    canvas.addEventListener('mouseenter', () => {
-      canvas.style.cursor = url(https://cdn.imweb.me/thumbnail/20241111/cd03d21ffa98d.png), auto;  // 마우스가 캔버스에 올려졌을 때 커서 이미지로 변경
-    });
 
-    canvas.addEventListener('mouseleave', () => {
-      canvas.style.cursor = 'default';  // 마우스가 캔버스를 벗어났을 때 기본 커서로 변경
-    });
-  }
+        // 마우스 커서 이미지 변경
+        canvas.addEventListener('mouseenter', () => {
+          canvas.style.cursor = 'url(https://cdn.imweb.me/thumbnail/20241111/cd03d21ffa98d.png), auto';  // 마우스가 캔버스에 올려졌을 때 커서 이미지로 변경
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+          canvas.style.cursor = 'default';  // 마우스가 캔버스를 벗어났을 때 기본 커서로 변경
+        });
+      }
 
       // 각 캔버스에 대해 드래그 이벤트 설정
-      setupDragEvents(module1, images1, dragData1, () => drawRotatingImage(module1, ctx1, images1, dragData1), false);
-      setupDragEvents(module5, images5, dragData5, () => drawRotatingImage(module5, ctx5, images5, dragData5), true);  // module2 -> module5로 변경
-      setupDragEvents(module4, images4, dragData4, () => drawRotatingImage(module4, ctx4, images4, dragData4), true);  // module3 -> module4로 변경
+      setupDragEvents(module3, images3, dragData3, () => drawRotatingImage(module3, ctx3, images3, dragData3), false);
+      setupDragEvents(module4, images4, dragData4, () => drawRotatingImage(module4, ctx4, images4, dragData4), true);
+      setupDragEvents(module5, images5, dragData5, () => drawRotatingImage(module5, ctx5, images5, dragData5), false);
 
-	    window.addEventListener('resize', resizeCanvas);  // 화면 크기 조정시마다 캔버스 크기 재설정
-    window.addEventListener('load', resizeCanvas);  // 페이지가 완전히 로드된 후 캔버스 크기 설정
+      // 리사이즈 이벤트 처리
+      window.addEventListener('resize', resizeCanvas);
     });
   </script>
 </body>
